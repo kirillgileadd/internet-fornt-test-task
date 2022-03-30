@@ -5,13 +5,21 @@ import PostsList from "./components/PostsList";
 import {useActions} from "./hooks/useActions";
 import {useTypeSelector} from "./hooks/useTypeSelector";
 import Loader from "./components/Loader";
+import styled from "styled-components";
+
+const AppWrapper = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  padding: 3rem;
+  background: #E5E5E5;
+  color: #606F81;
+`
 
 function App() {
     const {users, loading, error} = useTypeSelector(state => state.user)
     const {posts, userId} = useTypeSelector(state => state.post)
     const postsLoading = useTypeSelector(state => state.post.loading)
     const {fetchUsers, changeCurrentUser, fetchPosts} = useActions()
-    console.log(userId);
 
     useEffect(() => {
         fetchUsers()
@@ -30,7 +38,7 @@ function App() {
     }
 
     return (
-        <div>
+        <AppWrapper>
             <Header/>
             <UsersCarousel
                 users={users}
@@ -41,7 +49,7 @@ function App() {
                     : !postsLoading && posts.length ? <PostsList posts={posts}/>
                         : <Loader/>
             }
-        </div>
+        </AppWrapper>
     );
 }
 
