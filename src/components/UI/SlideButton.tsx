@@ -21,11 +21,12 @@ const StyledSlideButton = styled.button<StyledSlideButtonProps & SpaceProps>`
   background-position: left 50% top 47%;
   background-repeat: no-repeat;
   background-size: 26px;
+  cursor: pointer;
   ${props => props.next && css`
-    transform: rotate(180deg);
+    transform: rotate(0deg);
   `};
   ${props => props.prev && css`
-    transform: rotate(0deg);
+    transform: rotate(180deg);
   `}
 `
 const SlideButton: FC<StyledSlideButtonProps & SpaceProps> = (props) => {

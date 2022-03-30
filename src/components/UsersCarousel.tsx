@@ -7,7 +7,43 @@ import 'swiper/css/navigation';
 import {A11y, Navigation} from "swiper";
 import SlideButton from "./UI/SlideButton";
 import Flex from "./UI/Flex";
+import UserItem from "./UserItem";
+import styled from "styled-components";
+import backgroundImage from '../assets/img/swiperBackground.svg'
 
+const StyledNavLink = styled(NavLink)`
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s;
+
+  &.active {
+    color: #FE8700;
+
+    & div {
+      &:before {
+        transition: all 0.3s;
+        opacity: 1;
+      }
+    }
+  }
+`
+
+const SwiperInner = styled.div`
+  position: relative;
+  margin-bottom: 45px;
+
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    background-image: url(${backgroundImage});
+    right: 0;
+    top: 0;
+    width: 244px;
+    height: 330px;
+  }
+`
 
 interface UsersCarouselProps {
     users: IUser[];
@@ -17,32 +53,33 @@ interface UsersCarouselProps {
 const UsersCarousel: FC<UsersCarouselProps> = ({users, changeUser}) => {
 
     return (
-        <div>
+        <SwiperInner>
             <Swiper
                 modules={[Navigation, A11y]}
-                spaceBetween={50}
+                spaceBetween={15}
                 slidesPerView={4}
                 loop={true}
             >
-                <Flex align='center' justify='center'>
-                    <SlideButton mr={19} next/>
-                    <SlideButton prev/>
+                <Flex mb={20} align='center' justify='center'>
+                    <SlideButton mr={19} prev/>
+                    <SlideButton next/>
                 </Flex>
-                    {
-                        users.map((user) =>
-                            <SwiperSlide
-                                key={user.id}
+                {
+                    users.map((user) =>
+                        <SwiperSlide
+                            style={{width: "290px"}}
+                            key={user.id}
+                        >
+                            <StyledNavLink
+                                onClick={() => changeUser(user.id)}
+                                to={`/${user.id}`}
                             >
-                                <NavLink
-                                    onClick={() => changeUser(user.id)}
-                                    to={`/${user.id}`}
-                                >
-                                    {user.name}
-                                </NavLink>
-                            </SwiperSlide>)
-                    }
+                                <UserItem {...user}/>
+                            </StyledNavLink>
+                        </SwiperSlide>)
+                }
             </Swiper>
-        </div>
+        </SwiperInner>
 
     );
 };

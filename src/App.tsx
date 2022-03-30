@@ -9,9 +9,11 @@ import styled from "styled-components";
 
 const AppWrapper = styled.div`
   width: 100%;
+  margin: auto;
+  max-width: 1300px;
   min-height: 100vh;
   padding: 3rem;
-  background: #E5E5E5;
+  background: #FFFF;
   color: #606F81;
 `
 
@@ -44,11 +46,14 @@ function App() {
                 users={users}
                 changeUser={changeUser}
             />
-            {
-                postsLoading && !posts.length ? <h3>Выберете блогера, чтобы увидеть его посты</h3>
-                    : !postsLoading && posts.length ? <PostsList posts={posts}/>
-                        : <Loader/>
-            }
+            {/*Вынести в нутрь компонента!*/}
+            <div style={{minHeight: '300px'}}>
+                {
+                    postsLoading && !posts.length ? <h3>Выберете блогера, чтобы увидеть его посты</h3>
+                        : !postsLoading && posts.length ? <PostsList posts={posts}/>
+                            : <Loader/>
+                }
+            </div>
         </AppWrapper>
     );
 }
