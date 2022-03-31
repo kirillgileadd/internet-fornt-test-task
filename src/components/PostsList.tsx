@@ -3,32 +3,39 @@ import {IPost} from "../types/post";
 import styled from "styled-components";
 import Title from "./UI/Title";
 import PostItem from "./PostItem";
+import backgroundImage from '../assets/img/swiperBackground.svg'
+import Commas from '../assets/img/postsBackground.svg'
 import {useTypeSelector} from "../hooks/useTypeSelector";
+import Loader from "./Loader";
 
-const PostInner = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-`
 
 interface PostListProps {
     posts: IPost[];
-    username?: string | undefined;
+    username?: string;
 }
 
 const PostsList: FC<PostListProps> = ({posts, username}) => {
-    // const {users, } = useTypeSelector(state => state.user)
+    const postsLoading = useTypeSelector(state => state.post.loading)
+    const noPosts = postsLoading && !posts.length
+    const postAreLoading = !postsLoading && posts.length
+
+    if (noPosts) {
+        return <Title>Выберете блогера, чтобы увидеть его посты</Title>
+    }
+
+    if (!postAreLoading) {
+        return <Loader/>
+    }
+
     return (
-        <PostInner>
-            <div/>
-            <div>
-                <Title mb={57}>
-                    3 актуальных поста {username}
-                </Title>
-                {
-                    posts.map(post => <PostItem key={post.id} {...post} />)
-                }
-            </div>
-        </PostInner>
+        <div>
+            <Title mb={57}>
+                3 актуальных поста {username}
+            </Title>
+            {
+                posts.map(post => <PostItem key={post.id} {...post} />)
+            }
+        </div>
     );
 };
 

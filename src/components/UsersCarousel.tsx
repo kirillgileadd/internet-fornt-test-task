@@ -38,9 +38,9 @@ const SwiperInner = styled.div`
     content: '';
     position: absolute;
     background-image: url(${backgroundImage});
-    right: 0;
-    top: 0;
-    width: 244px;
+    right: -150px;
+    top: 20px;
+    width: 311px;
     height: 330px;
   }
 `
@@ -55,7 +55,7 @@ const UsersCarousel: FC<UsersCarouselProps> = ({users}) => {
         <SwiperInner>
             <Swiper
                 modules={[Navigation, A11y]}
-                spaceBetween={15}
+                spaceBetween={40}
                 slidesPerView={4}
                 loop={true}
             >

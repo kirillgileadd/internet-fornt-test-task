@@ -7,15 +7,48 @@ import {useTypeSelector} from "./hooks/useTypeSelector";
 import Loader from "./components/Loader";
 import styled from "styled-components";
 import {useLocation} from "react-router-dom";
+import backgroundImage from "./assets/img/swiperBackground.svg";
+import Commas from "./assets/img/postsBackground.svg";
 
 const AppWrapper = styled.div`
   width: 100%;
   margin: auto;
-  max-width: 1300px;
+  max-width: 1310px;
   min-height: 100vh;
-  padding: 3rem;
+  padding: 3rem 15px;
   background: #FFFF;
   color: #606F81;
+`
+
+const PostInner = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  position: relative;
+  min-height: 50vh;
+
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    background-image: url(${backgroundImage});
+    left: -19px;
+    top: 111px;
+    width: 311px;
+    height: 330px;
+  }
+;
+
+  &:after {
+    display: block;
+    content: '';
+    position: absolute;
+    background-image: url(${Commas});
+    background-repeat: no-repeat;
+    left: 190px;
+    top: -15px;
+    width: 100px;
+    height: 78px;
+  }
 `
 
 function App() {
@@ -27,9 +60,6 @@ function App() {
     const pathnameId = Number(location.pathname[1])
 
     const currentUser = users.find(user => user.id == userId)
-
-    const noPosts = postsLoading && !posts.length
-    const postAreLoading = !postsLoading && posts.length
 
     useEffect(() => {
         fetchUsers()
@@ -50,15 +80,10 @@ function App() {
             <UsersCarousel
                 users={users}
             />
-            <div style={{minHeight: '300px'}}>
-                {
-                    noPosts ? <h3>Выберете блогера, чтобы увидеть его посты</h3>
-                        :
-                        postAreLoading ? <PostsList posts={posts} username={currentUser?.username}/>
-                            :
-                            <Loader/>
-                }
-            </div>
+            <PostInner>
+                <div/>
+                <PostsList posts={posts} username={currentUser?.username}/>
+            </PostInner>
         </AppWrapper>
     );
 }

@@ -6,6 +6,7 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "./store";
 import {createGlobalStyle} from "styled-components";
+import "react-loader-spinner";
 
 const Global = createGlobalStyle`
 * {
