@@ -29,7 +29,7 @@ const PostsList: FC<PostListProps> = ({posts, username}) => {
 
     return (
         <div>
-            <Title mb={57}>
+            <Title mb={[10, 35, 35, 57]}>
                 3 актуальных поста {username}
             </Title>
             {

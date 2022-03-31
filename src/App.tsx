@@ -24,8 +24,11 @@ const PostInner = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr;
   position: relative;
-  min-height: 50vh;
+  min-height: 55vh;
   z-index: 10;
+  @media (max-width: 768px) {
+    display: block;
+  }
 
   &:before {
     display: block;
@@ -37,6 +40,9 @@ const PostInner = styled.div`
     width: 311px;
     height: 330px;
     z-index: 1;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 ;
 
@@ -51,6 +57,9 @@ const PostInner = styled.div`
     width: 100px;
     height: 78px;
     z-index: 1;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `
 

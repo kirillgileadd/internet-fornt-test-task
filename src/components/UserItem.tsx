@@ -6,11 +6,17 @@ import {IUser} from "../types/user";
 import styled from "styled-components";
 
 const UserPhoto = styled.img`
-  width: 290px;
+  width: 100%;
   height: 320px;
   max-width: 100%;
   margin-bottom: 20px;
   object-fit: cover;
+  @media (max-width: 768px) {
+    height: 100%;
+  }
+  @media (max-width: 576px) {
+    margin-bottom: 10px;
+  }
 `
 const Avatar = styled.div`
   position: relative;
@@ -24,6 +30,10 @@ const Avatar = styled.div`
     width: 100%;
     height: 5px;
     background-color: #FE8700;
+    @media (max-width: 576px) {
+      bottom: 16px;
+      height: 7px;
+    }
   }
 `
 

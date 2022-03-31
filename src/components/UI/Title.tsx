@@ -10,6 +10,13 @@ const StyledTittle = styled.h3<SpaceProps & LayoutProps>`
   font-size: 48px;
   line-height: 45px;
   color: #384758;
+  @media(max-width: 576px) {
+    font-size: 38px;
+  }
+  @media(max-width: 421px) {
+    font-size: 28px;
+  }
+  
 `
 
 const Title: FC<SpaceProps & LayoutProps> = (props) => {

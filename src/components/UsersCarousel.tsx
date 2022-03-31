@@ -32,6 +32,10 @@ const StyledNavLink = styled(NavLink)`
 const SwiperInner = styled.div`
   position: relative;
   margin-bottom: 45px;
+  @media (max-width: 576px) {
+    margin-bottom: 20px;
+  }
+  
 
   &:before {
     display: block;
@@ -58,6 +62,24 @@ const UsersCarousel: FC<UsersCarouselProps> = ({users}) => {
                 spaceBetween={40}
                 slidesPerView={4}
                 loop={true}
+                breakpoints={{
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    },
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 10,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                    },
+                    992: {
+                        slidesPerView: 4,
+                        spaceBetween: 40,
+                    },
+                }}
             >
                 <Flex mb={20} align='center' justify='center'>
                     <SlideButton mr={19} prev/>
@@ -66,7 +88,6 @@ const UsersCarousel: FC<UsersCarouselProps> = ({users}) => {
                 {
                     users.map((user) =>
                         <SwiperSlide
-                            style={{width: "290px"}}
                             key={user.id}
                         >
                             <StyledNavLink
