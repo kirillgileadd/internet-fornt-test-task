@@ -25,16 +25,18 @@ const PostInner = styled.div`
   grid-template-columns: 1fr 3fr;
   position: relative;
   min-height: 50vh;
+  z-index: 10;
 
   &:before {
     display: block;
     content: '';
     position: absolute;
     background-image: url(${backgroundImage});
-    left: -19px;
+    right: 77%;
     top: 111px;
     width: 311px;
     height: 330px;
+    z-index: 1;
   }
 ;
 
@@ -44,20 +46,21 @@ const PostInner = styled.div`
     position: absolute;
     background-image: url(${Commas});
     background-repeat: no-repeat;
-    left: 190px;
+    right: 77%;
     top: -15px;
     width: 100px;
     height: 78px;
+    z-index: 1;
   }
 `
 
 function App() {
     const {users, loading, error} = useTypeSelector(state => state.user)
     const {posts, userId} = useTypeSelector(state => state.post)
-    const postsLoading = useTypeSelector(state => state.post.loading)
     const {fetchUsers, changeCurrentUser, fetchPosts} = useActions()
     const location = useLocation()
-    const pathnameId = Number(location.pathname[1])
+    const pathnameId = parseInt(location.pathname.replace(/[^\d]/g, ''))
+    console.log(pathnameId);
 
     const currentUser = users.find(user => user.id == userId)
 
@@ -68,7 +71,7 @@ function App() {
     useEffect(() => {
         changeCurrentUser(pathnameId)
         fetchPosts(userId)
-    }, [pathnameId])
+    }, [pathnameId, userId])
 
     if (loading && !users.length) {
         return <Loader/>

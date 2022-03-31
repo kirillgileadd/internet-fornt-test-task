@@ -8,6 +8,7 @@ import styled from "styled-components";
 const UserPhoto = styled.img`
   width: 290px;
   height: 320px;
+  max-width: 100%;
   margin-bottom: 20px;
   object-fit: cover;
 `
