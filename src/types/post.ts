@@ -32,7 +32,7 @@ interface FetchPostSuccessAction {
 
 interface FetchPostErrorAction {
     type: PostActionTypes.FETCH_POST_ERROR;
-    payload: string
+    payload: string;
 }
 
 interface ChangeCurrentUser {

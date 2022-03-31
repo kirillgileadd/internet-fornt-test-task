@@ -6,6 +6,7 @@ import {useActions} from "./hooks/useActions";
 import {useTypeSelector} from "./hooks/useTypeSelector";
 import Loader from "./components/Loader";
 import styled from "styled-components";
+import {useLocation} from "react-router-dom";
 
 const AppWrapper = styled.div`
   width: 100%;
@@ -22,18 +23,22 @@ function App() {
     const {posts, userId} = useTypeSelector(state => state.post)
     const postsLoading = useTypeSelector(state => state.post.loading)
     const {fetchUsers, changeCurrentUser, fetchPosts} = useActions()
+    const location = useLocation()
+    const pathnameId = Number(location.pathname[1])
+
+    const currentUser = users.find(user => user.id == userId)
+
+    const noPosts = postsLoading && !posts.length
+    const postAreLoading = !postsLoading && posts.length
 
     useEffect(() => {
         fetchUsers()
     }, [])
 
     useEffect(() => {
+        changeCurrentUser(pathnameId)
         fetchPosts(userId)
-    }, [userId])
-
-    const changeUser = (id: number) => {
-        changeCurrentUser(id)
-    }
+    }, [pathnameId])
 
     if (loading && !users.length) {
         return <Loader/>
@@ -44,14 +49,14 @@ function App() {
             <Header/>
             <UsersCarousel
                 users={users}
-                changeUser={changeUser}
             />
-            {/*Вынести в нутрь компонента!*/}
             <div style={{minHeight: '300px'}}>
                 {
-                    postsLoading && !posts.length ? <h3>Выберете блогера, чтобы увидеть его посты</h3>
-                        : !postsLoading && posts.length ? <PostsList posts={posts}/>
-                            : <Loader/>
+                    noPosts ? <h3>Выберете блогера, чтобы увидеть его посты</h3>
+                        :
+                        postAreLoading ? <PostsList posts={posts} username={currentUser?.username}/>
+                            :
+                            <Loader/>
                 }
             </div>
         </AppWrapper>

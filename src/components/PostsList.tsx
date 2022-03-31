@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import {IPost} from "../types/post";
 import styled from "styled-components";
 import Title from "./UI/Title";
+import PostItem from "./PostItem";
+import {useTypeSelector} from "../hooks/useTypeSelector";
 
 const PostInner = styled.div`
   display: grid;
@@ -9,19 +11,21 @@ const PostInner = styled.div`
 `
 
 interface PostListProps {
-    posts: IPost[]
+    posts: IPost[];
+    username?: string | undefined;
 }
 
-const PostsList: FC<PostListProps> = ({posts}) => {
+const PostsList: FC<PostListProps> = ({posts, username}) => {
+    // const {users, } = useTypeSelector(state => state.user)
     return (
         <PostInner>
             <div/>
             <div>
-                <Title mb={30}>
-                    3 актуальных поста Moriah.Stanton
+                <Title mb={57}>
+                    3 актуальных поста {username}
                 </Title>
                 {
-                    posts.map(post => <div key={post.id}>{post.title}</div>)
+                    posts.map(post => <PostItem key={post.id} {...post} />)
                 }
             </div>
         </PostInner>

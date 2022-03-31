@@ -7,7 +7,6 @@ export const fetchPosts = (userId: number | null) => async (dispatch: Dispatch<P
         dispatch({type: PostActionTypes.FETCH_POST})
         if(userId) {
             let response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_limit=3&${userId ? `userId=${userId}` : ''}`)
-            console.log(response.data);
             dispatch({type: PostActionTypes.FETCH_POST_SUCCESS, payload: response.data})
         }
     } catch (e) {

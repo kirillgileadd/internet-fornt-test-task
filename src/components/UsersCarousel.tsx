@@ -47,10 +47,9 @@ const SwiperInner = styled.div`
 
 interface UsersCarouselProps {
     users: IUser[];
-    changeUser: (id: number) => void
 }
 
-const UsersCarousel: FC<UsersCarouselProps> = ({users, changeUser}) => {
+const UsersCarousel: FC<UsersCarouselProps> = ({users}) => {
 
     return (
         <SwiperInner>
@@ -71,7 +70,6 @@ const UsersCarousel: FC<UsersCarouselProps> = ({users, changeUser}) => {
                             key={user.id}
                         >
                             <StyledNavLink
-                                onClick={() => changeUser(user.id)}
                                 to={`/${user.id}`}
                             >
                                 <UserItem {...user}/>
