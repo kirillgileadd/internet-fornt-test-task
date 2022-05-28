@@ -1,12 +1,14 @@
-import {UserAction, UserActionTypes, UserState} from "../../types/user";
+import {IUser, UserAction, UserActionTypes, UserState} from "../../types/user";
+import {PostActionTypes} from "../../types/post";
 
 const initialState: UserState = {
     users: [],
     loading: false,
-    error: null
+    error: null,
+    currentUserId: null
 }
 
-export const userReducer = (state =initialState, action: UserAction): UserState => {
+export const userReducer = (state = initialState, action: UserAction): UserState => {
     switch (action.type) {
         case UserActionTypes.FETCH_USERS: {
             return {
@@ -15,17 +17,27 @@ export const userReducer = (state =initialState, action: UserAction): UserState 
             }
         }
         case UserActionTypes.FETCH_USERS_SUCCESS: {
+            const id = action.payload.id
+            const currentUsers: IUser[] = action.payload.users.sort(function (x, y) {
+                return x.id == id ? -1 : y.id == id ? 1 : 0;
+            });
             return {
-                loading: false,
-                error: null,
-                users: action.payload
+                ...state,
+                users: currentUsers,
+                loading: false
             }
         }
         case UserActionTypes.FETCH_USERS_ERROR: {
             return {
+                ...state,
                 loading: false,
                 error: action.payload,
-                users: []
+            }
+        }
+        case UserActionTypes.CHANGE_CURRENT_USER: {
+            return {
+                ...state,
+                currentUserId: action.payload
             }
         }
         default: {

@@ -1,4 +1,4 @@
-import {IPost} from "./post";
+import {IPost, PostActionTypes} from "./post";
 
 export interface IUser {
     id: number;
@@ -12,12 +12,14 @@ export interface UserState {
     users: IUser[];
     loading: boolean;
     error: null | string;
+    currentUserId: null | number
 }
 
 export enum UserActionTypes {
     FETCH_USERS = "FETCH_USERS",
     FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS",
     FETCH_USERS_ERROR = "FETCH_USERS_ERROR",
+    CHANGE_CURRENT_USER = "CHANGE_CURRENT_USER"
 }
 
 interface FetchUserAction {
@@ -27,7 +29,7 @@ interface FetchUserAction {
 
 interface FetchUserSuccessAction {
     type: UserActionTypes.FETCH_USERS_SUCCESS;
-    payload: IUser[]
+    payload: { users: IUser[], id: number }
 
 }
 
@@ -36,4 +38,13 @@ interface FetchUserErrorAction {
     payload: string
 }
 
-export type UserAction = FetchUserErrorAction | FetchUserSuccessAction | FetchUserAction
+interface ChangeCurrentUserAction {
+    type: UserActionTypes.CHANGE_CURRENT_USER;
+    payload: number;
+}
+
+
+export type UserAction = FetchUserErrorAction
+    | FetchUserSuccessAction
+    | FetchUserAction
+    | ChangeCurrentUserAction

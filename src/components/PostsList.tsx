@@ -1,12 +1,10 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {IPost} from "../types/post";
-import styled from "styled-components";
 import Title from "./UI/Title";
 import PostItem from "./PostItem";
-import backgroundImage from '../assets/img/swiperBackground.svg'
-import Commas from '../assets/img/postsBackground.svg'
 import {useTypeSelector} from "../hooks/useTypeSelector";
 import Loader from "./Loader";
+import {useActions} from "../hooks/useActions";
 
 
 interface PostListProps {
@@ -16,14 +14,20 @@ interface PostListProps {
 
 const PostsList: FC<PostListProps> = ({posts, username}) => {
     const postsLoading = useTypeSelector(state => state.post.loading)
+    const {clearPostAction} = useActions()
     const noPosts = postsLoading && !posts.length
-    const postAreLoading = !postsLoading && posts.length
+
+    useEffect(() => {
+        return function clear() {
+            clearPostAction()
+        }
+    }, [])
 
     if (noPosts) {
         return <Title>Выберете блогера, чтобы увидеть его посты</Title>
     }
 
-    if (!postAreLoading) {
+    if (postsLoading) {
         return <Loader/>
     }
 

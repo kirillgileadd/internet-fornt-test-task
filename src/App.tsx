@@ -64,23 +64,21 @@ const PostInner = styled.div`
 `
 
 function App() {
-    const {users, loading, error} = useTypeSelector(state => state.user)
-    const {posts, userId} = useTypeSelector(state => state.post)
+    const {users, loading, error, currentUserId} = useTypeSelector(state => state.user)
+    const {posts} = useTypeSelector(state => state.post)
     const {fetchUsers, changeCurrentUser, fetchPosts} = useActions()
     const location = useLocation()
     const pathnameId = parseInt(location.pathname.replace(/[^\d]/g, ''))
-    console.log(pathnameId);
-
-    const currentUser = users.find(user => user.id == userId)
+    const currentUser = users.find(user => user.id == currentUserId)
 
     useEffect(() => {
-        fetchUsers()
+        fetchUsers(pathnameId)
     }, [])
 
     useEffect(() => {
         changeCurrentUser(pathnameId)
-        fetchPosts(userId)
-    }, [pathnameId, userId])
+        fetchPosts(currentUserId)
+    }, [pathnameId])
 
     if (loading && !users.length) {
         return <Loader/>

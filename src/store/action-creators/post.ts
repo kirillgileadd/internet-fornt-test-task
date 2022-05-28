@@ -14,6 +14,6 @@ export const fetchPosts = (userId: number | null) => async (dispatch: Dispatch<P
     }
 }
 
-export const changeCurrentUser = (id: number) => (dispatch: Dispatch<PostAction>) => {
-    dispatch({type: PostActionTypes.CHANGE_CURRENT_USER, payload: id})
-}
+export const clearPostAction = () => ({
+    type: PostActionTypes.CLEAR_POST
+})

@@ -16,7 +16,8 @@ export enum PostActionTypes {
     FETCH_POST = "FETCH_POST",
     FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS",
     FETCH_POST_ERROR = "FETCH_POST_ERROR",
-    CHANGE_CURRENT_USER = "CHANGE_CURRENT_USER"
+    CHANGE_CURRENT_USER = "CHANGE_CURRENT_USER",
+    CLEAR_POST = "CLEAR_POST"
 }
 
 interface FetchPostAction {
@@ -35,9 +36,11 @@ interface FetchPostErrorAction {
     payload: string;
 }
 
-interface ChangeCurrentUser {
-    type: PostActionTypes.CHANGE_CURRENT_USER;
-    payload: number;
+interface ClearPostAction {
+    type: PostActionTypes.CLEAR_POST;
 }
 
-export type PostAction = FetchPostErrorAction | FetchPostSuccessAction | FetchPostAction | ChangeCurrentUser
+export type PostAction = FetchPostErrorAction
+    | FetchPostSuccessAction
+    | FetchPostAction
+    | ClearPostAction

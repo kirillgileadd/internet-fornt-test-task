@@ -4,6 +4,7 @@ import SubTitle from "./UI/SubTitle";
 import axios from "axios";
 import {IUser} from "../types/user";
 import styled from "styled-components";
+import {minHeight} from "styled-system";
 
 const UserPhoto = styled.img`
   width: 100%;
@@ -41,7 +42,7 @@ const UserItem: FC<IUser> = ({username, name}) => {
     return (
         <Flex direction='column'>
             <Avatar>
-                <UserPhoto src="https://i.pravatar.cc/290" alt=""/>
+                <UserPhoto style={{minHeight: '320px'}} src="https://i.pravatar.cc/290" alt=""/>
             </Avatar>
             <Flex direction='column' align='flex-start'>
                 <SubTitle>{name}</SubTitle>

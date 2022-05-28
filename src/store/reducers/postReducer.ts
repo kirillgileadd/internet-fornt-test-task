@@ -28,10 +28,10 @@ export const postReducer = (state =initialState, action: PostAction): PostState 
                 error: action.payload,
             }
         }
-        case PostActionTypes.CHANGE_CURRENT_USER: {
+        case PostActionTypes.CLEAR_POST: {
             return {
                 ...state,
-                userId: action.payload
+                posts: []
             }
         }
         default: {
